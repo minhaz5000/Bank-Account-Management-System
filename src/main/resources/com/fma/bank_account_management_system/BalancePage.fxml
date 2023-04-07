@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="1040.0" style="-fx-background-color: #4CAF50;" stylesheets="@../styles/BalancePage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fma.bank_account_management_system.BalancePageController">
+
+    <children>
+        <Pane layoutX="545.0" layoutY="169.0" prefHeight="320.0" prefWidth="404.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+            <children>
+                <Label layoutX="82.0" layoutY="64.0" prefHeight="40.0" prefWidth="240.0" text="Account Balance" textFill="#4caf50">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="balanceinfo" alignment="CENTER" editable="false" focusTraversable="false" layoutX="102.0" layoutY="176.0" prefHeight="75.0" prefWidth="200.0" stylesheets="@../styles/BalancePage.css" text="Balance">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                    </cursor>
+                </TextField>
+            <Button fx:id="backButton" layoutX="133.0" layoutY="266.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="40.0" prefWidth="138.0" style="-fx-background-color: #4CAF50;" text="Back">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            </children>
+        </Pane>
+        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../icons/543.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="85.0" layoutY="50.0" prefHeight="35.0" prefWidth="310.0" text="A Smarter Way Of Banking." textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <TextArea fx:id="quotedisbp" editable="false" layoutX="65.0" layoutY="227.0" prefHeight="166.0" prefWidth="376.0" styleClass="text-area" text="Do Not Save What Is Left After Spending , Spend What Is Left After Saving." wrapText="true">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextArea>
+    </children>
+</AnchorPane>
