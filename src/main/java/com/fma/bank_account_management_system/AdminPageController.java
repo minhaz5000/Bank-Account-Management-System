@@ -120,7 +120,7 @@ public class AdminPageController {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.sizeToScene();
-        stage.setTitle("Add Customer Page");
+        stage.setTitle("Add User Page");
         stage.setScene(scene);
         stage.show();
     }
@@ -134,7 +134,7 @@ public class AdminPageController {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.sizeToScene();
-        stage.setTitle("Edit Customer Page");
+        stage.setTitle("Edit User Page");
         stage.setScene(scene);
         stage.show();
 
@@ -149,7 +149,7 @@ public class AdminPageController {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.sizeToScene();
-        stage.setTitle("Delete Customer Page");
+        stage.setTitle("Delete User Page");
         stage.setScene(scene);
         stage.show();
     }

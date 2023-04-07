@@ -16,6 +16,8 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,7 +64,7 @@ public class PasswordResetController {
                 if (rs.next()) {
                     Email = rs.getString("email");
                     PreparedStatement pss = con.prepareStatement("UPDATE users SET password = ? WHERE id = '" + cusid.getText() + "'");
-                    pss.setString(1, Integer.toString(pass));
+                    pss.setString(1, Encryption.encodeKey(Integer.toString(pass)));
                     int i = pss.executeUpdate();
                     if (i > 0) {
                         confirmation.setText("A New Random Password Is Set To This ID"+"\n");
@@ -101,6 +103,10 @@ public class PasswordResetController {
                 rs.close();
             } catch (NumberFormatException | SQLException e) {
                 confirmation.setText("DataBase Error Or Invalid Number Format");
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            } catch (InvalidKeySpecException e) {
+                throw new RuntimeException(e);
             }
         }
     }

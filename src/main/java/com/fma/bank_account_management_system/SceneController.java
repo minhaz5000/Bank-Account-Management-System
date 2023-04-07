@@ -16,6 +16,8 @@ import javafx.event.ActionEvent;
 
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,14 +41,14 @@ public class SceneController {
     @FXML
     private RadioButton adminrb;
     @FXML
-    private void Login(ActionEvent event) throws SQLException, IOException {
+    private void Login(ActionEvent event) throws SQLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         Connection con = DBConnection.ConnectToDB();
         PreparedStatement ps = null;
         ResultSet rs = null;
         if (userrb.isSelected()) {
             ps = con.prepareStatement("SELECT * FROM users WHERE id = ? and password = ?");
             ps.setString(1, useridtf.getText());
-            ps.setString(2, passwordtf.getText());
+            ps.setString(2, Encryption.encodeKey(passwordtf.getText()));
             rs = ps.executeQuery();
             if (rs.next()) {
                 System.out.println("User Found");
@@ -70,7 +72,7 @@ public class SceneController {
             } else if (adminrb.isSelected()) {
                 ps = con.prepareStatement("SELECT * FROM admins WHERE id = ? and password = ?");
                 ps.setString(1, useridtf.getText());
-                ps.setString(2, passwordtf.getText());
+                ps.setString(2, Encryption.encodeKey(passwordtf.getText()));
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

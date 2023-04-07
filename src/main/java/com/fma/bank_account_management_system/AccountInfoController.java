@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,7 +96,7 @@ public class AccountInfoController {
         rs.close();
     }
 
-    public void ChangePassword(ActionEvent event) throws SQLException {
+    public void ChangePassword(ActionEvent event) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         if (!newpass.getText().equals(passretype.getText())) {
             changepassconf.setText("Password Confirmation Failed");
             passretype.setText("");
@@ -103,8 +105,8 @@ public class AccountInfoController {
             changepassconf.setText("Please Fill Up Everything Correctly.");
         } else {
             Connection con = DBConnection.ConnectToDB();
-            PreparedStatement ps = con.prepareStatement("UPDATE users SET password = ? WHERE id ='" + UserID + "' AND password ='" + oldpass.getText() + "'");
-            ps.setString(1, newpass.getText());
+            PreparedStatement ps = con.prepareStatement("UPDATE users SET password = ? WHERE id ='" + UserID + "' AND password ='" + Encryption.encodeKey(oldpass.getText()) + "'");
+            ps.setString(1, Encryption.encodeKey(newpass.getText()));
             int i = ps.executeUpdate();
             if (i > 0) {
                 changepassconf.setText("Password Changed.");

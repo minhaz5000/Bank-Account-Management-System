@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -155,7 +157,7 @@ public class BalancePageController {
                 receiverid.setStyle("-fx-border-color: #e65100;-fx-border-width:2;-fx-border-radius:20;-fx-background-radius:22;");
                 ps.setString(1, UserID);
                 System.out.println(UserID);
-                ps.setString(2, retypepass.getText());
+                ps.setString(2, Encryption.encodeKey(retypepass.getText()));
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     retypepass.setStyle("-fx-border-color: #e65100;-fx-border-width:2;-fx-border-radius:20;-fx-background-radius:22;");
@@ -212,6 +214,10 @@ public class BalancePageController {
             }
         } catch (NumberFormatException | SQLException e) {
             transferconf.setText("Invalid Database Or Number Format");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException(e);
         }
     }
 }

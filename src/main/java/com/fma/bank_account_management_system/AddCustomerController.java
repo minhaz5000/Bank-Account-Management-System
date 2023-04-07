@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -78,7 +80,7 @@ public class AddCustomerController {
                         Connection con = DBConnection.ConnectToDB();
                         PreparedStatement ps = con.prepareStatement("INSERT INTO users VALUES (?,?,?,?,?,?,?,?)");
                         ps.setString(1, cusid.getText());
-                        ps.setString(2, cuspass.getText());
+                        ps.setString(2, Encryption.encodeKey(cuspass.getText()));
                         ps.setString(3, cusname.getText());
                         ps.setString(4, cusaddress.getText());
                         ps.setString(5, cusemail.getText());
@@ -87,6 +89,7 @@ public class AddCustomerController {
 //                        fis = new FileInputStream(file);
 //                        ps.setBinaryStream(8, (InputStream) fis, (int) file.length());
                         FileInputStream fin = new FileInputStream(file);
+
                         ps.setBinaryStream(8, fin, (int) file.length());
 
                         int i = ps.executeUpdate();
@@ -105,6 +108,10 @@ public class AddCustomerController {
                         ps.close();
                     } catch (FileNotFoundException | NumberFormatException | SQLException e) {
                         addcusconfirm.setText("Invalid Customer ID or ID Is Not Available");
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidKeySpecException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
